@@ -18,15 +18,6 @@ import com.amits.rest.webservices.exceptions.NoPostForUserFoundException;
 public class PostController {
 
 	@Autowired
-	private PostDAOService service;
-	
-	@GetMapping("/users/{id}/posts")
-	public List<Post> retrieveAllPostsForUser(@PathVariable(name="id") int userId) {
-		List<Post> userPosts = service.findAllForUser(userId);
-		if(userPosts.isEmpty()) {
-			throw new NoPostForUserFoundException("No post found for userid = " + userId);
-		}
-		return userPosts;
-	}
+	private PostRepository service;
 	
 }

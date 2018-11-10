@@ -1,47 +1,61 @@
 package com.amits.rest.webservices.posts;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
+
+import com.amits.rest.webservices.users.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Amit Sadafule
  *
- * 08-Nov-2018
+ *         08-Nov-2018
  */
+@Entity
 public class Post {
 
-	private Integer userId;
-	private Integer postId;
-	private String message;
+	@Id
+	@GeneratedValue
+	private Integer id;
 	
-	private Post(){}
-	
-	/**
-	 * @param userId
-	 * @param postId
-	 * @param message
-	 */
-	public Post(Integer userId, Integer postId, String message) {
-		super();
-		this.userId = userId;
-		this.postId = postId;
-		this.message = message;
+	@Size(min=3, max=160, message="description must have min 2 and max 160 characters")
+	@ApiModelProperty(notes="description must have min 2 and max 160 characters")
+	private String description;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private User user;
+
+	private Post() {
 	}
-	public Integer getUserId() {
-		return userId;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public Integer getPostId() {
-		return postId;
+
+	public String getDescription() {
+		return description;
 	}
-	public void setPostId(Integer postId) {
-		this.postId = postId;
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getMessage() {
-		return message;
+
+	public User getUser() {
+		return user;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
-	
 }
